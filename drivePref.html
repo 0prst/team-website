@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Driving Preferences</title>
+        <link rel="stylesheet" href="css/style.css">
+        
+    </head>
+    <body>
+        <main>
+            <p id="second"></p>
+            <section id="driverForms">
+                <h1>Details on driving capabilities</h1>
+                <form id="driver" onsubmit="return checkboxDays()">
+                    <h2>Driving Preferences</h2>
+                    <h3>Do you have a car?</h3>
+                    <label><input onchange="haveCar()" type="radio" name="car" required>Yes</label><br>
+                    <label><input onchange="haveCar()" type="radio" name="car" required>No</label><br>
+                    <div id="backupDriver" style="display: none;">
+                        <h3>Will you be able to be a backup driver with somebody else's car if the driver is not available (e.g. left for a regatta)?</h3>
+                            <label><input onchange="daysSel()" type="radio" name="backupdriver" value="yes">Yes</label><br>
+                            <label><input onchange="daysSel()" type="radio" name="backupdriver" value="no">No</label><br>
+                            <div id="days" style="display: none;">
+                                <h3>Please specify the days you can drive:</h3>
+                                <label><input type="checkbox" name="days">Tuesday</label>&nbsp;<label><input type="checkbox" name="days">Thursday</label>&nbsp;<label><input type="checkbox" name="days">Friday</label><br>
+                            </div>
+                    </div>
+                    <div id="driverWithCarDetails" style="display: none;">
+                        <h3>How many places does your car have (excluding driver)?</h3>
+                        <input type="number" name="carCapacity" min="0" placeholder="e.g. 4">
+                        <h3>Will you allow other people to drive your car when you are not able to?</h3>
+                        <label><input type="radio" name="backupcar" value="yes">Yes</label><br>
+                        <label><input type="radio" name="backupcar" value="no">No</label><br>
+                        <h3>Will you be able to drive to practices regularly (please specify the days):</h3>
+                        <label><input onchange="daysHide()" type="radio" name="driver" value="yes">Yes</label><br>
+                        <label><input onchange="daysHide()" type="radio" name="driver" value="no">No</label><br>
+                        <h3 class="daysHide">Please specify the days you can drive:</h3><br>
+                        <label class="daysHide"><input type="checkbox" name="days">Tuesday</label>&nbsp;<label class="daysHide"><input type="checkbox" name="days">Thursday</label>&nbsp;<label class="daysHide"><input type="checkbox" name="days">Friday</label><br>
+                    </div>
+                    <input type="submit" value="Submit" onchange="event.preventDefault(); checkbox()">
+                </form>
+            </section>
+        </main>
+        <script type="text/javascript">
+            //react to whether the user has car or not
+            function haveCar(){
+                if(document.getElementsByName("car")[0].checked){
+                    document.getElementById("driverWithCarDetails").style.display = "block";
+                    document.getElementById("backupDriver").style.display = "none";
+                    let elements = document.querySelectorAll("#driverWithCarDetails input");
+                    for(let i = 0; i < elements.length-3; i++){
+                        elements[i].setAttribute("required", "true");
+                    }
+                    for(let i = 0; i < document.querySelectorAll("#backupDriver input").length; i++){
+                        document.querySelectorAll("#backupDriver input")[0].setAttribute("required");
+                    }
+                }else{
+                    document.getElementById("driverWithCarDetails").style.display = "none";
+                    document.getElementById("backupDriver").style.display = "block";
+                    let elements = document.querySelectorAll("#driverWithCarDetails input");
+                    for(let i = 0; i < elements.length; i++){
+                        elements[i].removeAttribute("required");
+                    }
+                    for(let i = 0; i < document.querySelectorAll("#backupDriver input").length; i++){
+                        document.querySelectorAll("#backupDriver input")[0].removeAttribute("required");
+                    }
+                    document.querySelector("#driverWithCarDetails input[name=carCapacity]").value = "";
+                }
+            }
+
+            //display days selection for backup driver without  car
+            function daysSel(){
+                if(document.getElementsByName("backupdriver")[0].checked){
+                    document.getElementById("days").style.display = "block";
+                }else{
+                    document.getElementById("days").style.display = "none";
+                }
+            }
+            //hide days section for if not able to drive regularly with own car
+            function daysHide(){
+                if(document.getElementsByName("driver")[1].checked){
+                    let elements = document.querySelectorAll(".daysHide");
+                    for(let i = 0; i < elements.length; i++){
+                        elements[i].style.display = "none";
+                    }
+                }else{
+                    let elements = document.querySelectorAll(".daysHide");
+                    for(let i = 0; i < elements.length; i++){
+                        elements[i].style.display = "inline-block";
+                    }
+                }
+            }
+
+            //check if at least one day is selected
+            function checkboxDays() {
+                let elements = document.querySelectorAll("#driverForms div[style='display: block;'] input[name='days']");
+                if (document.querySelectorAll("#driverForms div[style='display: block;'] input[type=radio]")[1].checked){
+                    return true;
+                }
+                let check = false;
+                    for(let i = 0; i < elements.length; i++){
+                        if (elements[i].checked){
+                            return true;
+                        }
+                    }
+                alert("Choose one of the days")
+                return false;
+            }
+        </script>
+    </body>
+</html>

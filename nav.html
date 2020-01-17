@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <aside class="sideNav">
+            <ul class="sideNav">
+                <li><a href="">practice preferences</a></li>
+                <li><a href="">carpools</a></li>
+                <li><a href="">personal information</a></li>
+                <li><a href="">monday minutes</a></li>
+            </ul>
+        </aside>
+        <script type="text/javascript">
+            //toggle the class of current link to .active to highlight the link
+            var x = window.location.href;
+            x = x.slice(x.lastIndexOf("/")+1,x.length)
+            window.addEventListener("load", function(){
+                document.querySelector("a[href=\'"+x+"']").className = "active";
+            })
+        </script>
+    </body>
+</html>

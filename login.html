@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" >
+        <title>Login</title>
+    </head>
+    <body>
+        <h1>Welcome to My Awesome App</h1>
+        <div id="signIn/out">
+            <div id="firebaseui-auth-container"></div>
+        </div>
+        <button type="button" onclick="logout()">123</button>
+        <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+      
+        <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+      
+        <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+      
+        <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+              apiKey: "AIzaSyAkyDtE9nyl0Gt8PveJ3-buPzzsZOOztBE",
+              authDomain: "sailing-account.firebaseapp.com",
+              databaseURL: "https://sailing-account.firebaseio.com",
+              projectId: "sailing-account",
+              storageBucket: "sailing-account.appspot.com",
+              messagingSenderId: "764334245441",
+              appId: "1:764334245441:web:83e3330c54c2e4dc1968c0",
+              measurementId: "G-BTC5P99WVQ"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+        </script>
+        <!--
+            Implementation of authentication using firebaseUI library
+        -->
+        <script src="https://www.gstatic.com/firebasejs/ui/4.3.0/firebase-ui-auth__en.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.3.0/firebase-ui-auth.css" />
+        <script type="text/javascript">
+            // FirebaseUI config.
+            var uiConfig = {
+              signInSuccessUrl: 'http://127.0.0.1:5500/login.html',
+              signInOptions: [
+                // Leave the lines as is for the providers you want to offer your users.
+                {
+                    provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                    customParameters: {
+                        // Forces account selection even when one account
+                        // is available.
+                        prompt: 'consent',
+                        hd: "umich.edu"
+                    }
+                },
+              ],
+            };
+      
+            // Initialize the FirebaseUI Widget using Firebase.
+            var ui = new firebaseui.auth.AuthUI(firebase.auth());
+            // The start method will wait until the DOM is loaded.
+            ui.start('#firebaseui-auth-container', uiConfig);
+          </script>
+
+          <!--
+              script after signing in
+          -->
+          <script>
+              const auth = firebase.auth();
+            function logout(){
+                auth.signOut().then();
+            }
+
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    // User is signed in.
+                    console.log("logged in")
+                } else {
+                    // No user is signed in.
+                    console.log("logged out")
+                }
+            });
+          </script>
+      </body>
+</html>

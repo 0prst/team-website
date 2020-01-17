@@ -1,0 +1,81 @@
+.responsive-calendar .controls {
+  text-align: center;
+}
+.responsive-calendar .controls a {
+  cursor: pointer;
+}
+.responsive-calendar .controls h4 {
+  display: inline;
+}
+.responsive-calendar .day-headers,
+.responsive-calendar .days {
+  font-size: 0;
+}
+.responsive-calendar .day {
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  width: 14.285714285714286%;
+  text-align: center;
+}
+.responsive-calendar .day a {
+  color: #000000;
+  display: block;
+  cursor: pointer;
+  padding: 20% 0 20% 0;
+}
+.responsive-calendar .day a:hover {
+  background-color: rgba(238, 238, 238, 1);
+  text-decoration: none;
+}
+.responsive-calendar .day.header {
+  border-bottom: 1px gray solid;
+}
+.responsive-calendar .day.active a {
+  background-color: #1d86c8;
+  color: #ffffff;
+}
+.responsive-calendar .day.active a:hover {
+  background-color: #36a0e2;
+}
+.responsive-calendar .day.active .not-current {
+  background-color: #8fcaef;
+  color: #ffffff;
+}
+.responsive-calendar .day.active .not-current:hover {
+  background-color: #bcdff5;
+}
+.responsive-calendar .day.not-current a {
+  color: #ddd;
+}
+.responsive-calendar .day .badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 1;
+}
+
+
+/*
+my own additional code
+*/
+
+/*
+class for today's day highlight
+*/
+
+.today{
+  background-color: rgb(144, 91, 243);
+  text-decoration: none;
+}
+
+.practice{
+  background-color: rgba(102, 250, 83, 0.8);
+  text-decoration: none;
+}
+
+.responsive-calendar .day a.practice:hover {
+  background-color: rgba(102, 250, 83, 0.8);
+  opacity: 0.6;
+  text-decoration: none;
+}
